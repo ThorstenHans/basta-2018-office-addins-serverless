@@ -1,0 +1,8 @@
+{
+    "main": "office-app-manifest",
+    "version": "1.0.0",
+    "scripts": {
+        "deploy-on-mac": "cp ./powerpoint.addin.xml ~/Library/Containers/com.microsoft.powerpoint/Data/documents/wef",
+        "deploy-excel-on-mac": "cp ./excel.addin.xml ~/Library/Containers/com.microsoft.excel/Data/documents/wef"
+    }
+}

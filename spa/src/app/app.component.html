@@ -1,0 +1,32 @@
+<section class="todoapp">
+    <header class="header">
+        <h1>todos</h1>
+        <input class="new-todo" placeholder="What needs to be done?" autofocus="" [(ngModel)]="newTodoText" (keyup.enter)="add()">
+    </header>
+    <section class="main" *ngIf="todoItems.length > 0">
+        <input id="toggle-all" class="toggle-all" type="checkbox" *ngIf="todoItems.length" [attr.checked]="openTodoCount === 0" (click)="completeAll()">
+        <label for="toggle-all">Mark all as complete</label>
+        <ul class="todo-list">
+            <li *ngFor="let todo of todoItems" [class.completed]="todo.completed" [class.editing]="todo.editing">
+                <div class="view">
+                    <input class="toggle" type="checkbox" (click)="toggle(todo)" [checked]="todo.completed">
+                    <label (dblclick)="editTodo(todo)">{{todo.title}}</label>
+                    <button class="destroy" (click)="remove(todo)"></button>
+                </div>
+                <input class="edit" *ngIf="todo.editing" [value]="todo.title" #editedtodo (blur)="stopEditing(todo, editedtodo.value)" (keyup.enter)="updateEditingTodo(todo, editedtodo.value)"
+                    (keyup.escape)="cancelEditingTodo(todo)">
+            </li>
+        </ul>
+    </section>
+    <footer class="footer" *ngIf="todoItems.length > 0">
+        <span class="todo-count">
+            <strong>{{openTodoCount}}</strong> {{openTodoCount == 1 ? 'item' : 'items'}} left</span>
+        <button class="clear-completed" *ngIf="completedTodoCount > 0" (click)="removeCompleted()">Clear completed</button>
+    </footer>
+    <section *ngIf="isInOffice">
+        <button type="button" class="office-btn" (click)="getTaskTitleFromOffice()">Get From Office</button>
+        <button type="button" class="office-btn" (click)="writeTitleToOffice()">Write to Office</button>
+        <button type="button" class="office-btn" (click)="getOfficeContextInformation()">Get Office Context Information</button>
+        <div>{{officeContextInformation | json}}</div>
+    </section>
+</section>
